@@ -10,7 +10,7 @@
   <main class="card">
     <p class="eyebrow">WORKDAY TRACKER</p>
     <h1>퇴근 알리미</h1>
-    <p class="desc">오전 9시 출근 · 오후 6시 퇴근 · 12시~1시 점심시간 제외</p>
+    <p class="desc">오전 9시 출근 · 오후 6시 퇴근 · 점심시간 포함</p>
 
     <section class="progress-wrap" aria-label="업무 진행률 원형 프로그레스">
       <svg viewBox="0 0 280 280" aria-hidden="true">
@@ -19,11 +19,14 @@
       </svg>
 
       <div class="center">
-        <div class="label">퇴근까지 남은 시간</div>
-        <div class="time" id="timeText">00시간 00분 00초</div>
         <div class="percent" id="percentText">0%</div>
         <div class="subcopy">오늘 업무 진행률</div>
       </div>
+    </section>
+
+    <section class="countdown-info" aria-label="퇴근까지 남은 시간">
+      <div class="label">퇴근까지 남은 시간</div>
+      <div class="time" id="timeText">00시간 00분 00초</div>
     </section>
 
     <div class="status" id="statusText">근무 시간 계산 중...</div>
@@ -39,7 +42,7 @@
       </div>
     </section>
 
-    <p class="footnote">점심시간 1시간은 자동 제외됨</p>
+    <p class="footnote">총 9시간 기준으로 진행률 계산</p>
   </main>
 
   <script src="./script.js"></script>

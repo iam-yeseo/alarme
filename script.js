@@ -1,8 +1,6 @@
 const WORK_START_HOUR = 9;
-const LUNCH_START_HOUR = 12;
-const LUNCH_END_HOUR = 13;
 const WORK_END_HOUR = 18;
-const TOTAL_WORK_SECONDS = 8 * 60 * 60; // 9시간 중 점심 1시간 제외 = 8시간
+const TOTAL_WORK_SECONDS = 9 * 60 * 60;
 
 const progressCircle = document.getElementById('progressCircle');
 const percentText = document.getElementById('percentText');
@@ -30,43 +28,21 @@ function formatRemaining(seconds) {
 
 function getWorkedSeconds(now) {
   const workStart = getTodayTime(WORK_START_HOUR);
-  const lunchStart = getTodayTime(LUNCH_START_HOUR);
-  const lunchEnd = getTodayTime(LUNCH_END_HOUR);
   const workEnd = getTodayTime(WORK_END_HOUR);
 
   if (now < workStart) return 0;
   if (now >= workEnd) return TOTAL_WORK_SECONDS;
 
-  let worked = 0;
-
-  // 오전 근무: 09:00 ~ 12:00
-  const morningEnd = lunchStart;
-  if (now > workStart) {
-    worked += Math.max(0, Math.min(now, morningEnd) - workStart) / 1000;
-  }
-
-  // 오후 근무: 13:00 ~ 18:00
-  if (now > lunchEnd) {
-    worked += Math.max(0, Math.min(now, workEnd) - lunchEnd) / 1000;
-  }
-
-  return Math.min(worked, TOTAL_WORK_SECONDS);
+  return Math.min((now - workStart) / 1000, TOTAL_WORK_SECONDS);
 }
 
 function getStatusMessage(now, progress, remainingSeconds) {
   const workStart = getTodayTime(WORK_START_HOUR);
-  const lunchStart = getTodayTime(LUNCH_START_HOUR);
-  const lunchEnd = getTodayTime(LUNCH_END_HOUR);
   const workEnd = getTodayTime(WORK_END_HOUR);
 
   if (now < workStart) {
     const untilStart = Math.floor((workStart - now) / 1000);
     return `아직 출근 전이에요. 업무 시작까지 ${formatRemaining(untilStart)} 남았어요.`;
-  }
-
-  if (now >= lunchStart && now < lunchEnd) {
-    const untilLunchEnd = Math.floor((lunchEnd - now) / 1000);
-    return `지금은 점심시간 🍱 ${formatRemaining(untilLunchEnd)} 뒤에 다시 업무가 시작돼요.`;
   }
 
   if (now >= workEnd) {
