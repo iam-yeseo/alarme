@@ -10,39 +10,83 @@
   <main class="card">
     <p class="eyebrow">WORKDAY TRACKER</p>
     <h1>퇴근 알리미</h1>
-    <p class="desc">오전 9시 출근 · 오후 6시 퇴근 · 점심시간 포함</p>
+    <p class="desc">근무 설정에 맞춰 남은 시간과 진행률을 자동 계산합니다.</p>
 
-    <section class="progress-wrap" aria-label="업무 진행률 원형 프로그레스">
-      <svg viewBox="0 0 280 280" aria-hidden="true">
-        <circle class="track" cx="140" cy="140" r="118"></circle>
-        <circle class="progress" id="progressCircle" cx="140" cy="140" r="118"></circle>
-      </svg>
+    <div class="tabs" role="tablist" aria-label="화면 탭">
+      <button class="tab-btn is-active" id="dashboardTab" data-tab="dashboard" role="tab" aria-selected="true">현황</button>
+      <button class="tab-btn" id="settingsTab" data-tab="settings" role="tab" aria-selected="false">설정</button>
+    </div>
 
-      <div class="center">
-        <div class="percent" id="percentText">0%</div>
-        <div class="subcopy">오늘 업무 진행률</div>
-      </div>
+    <section class="tab-panel" id="dashboardPanel" role="tabpanel" aria-labelledby="dashboardTab">
+      <section class="progress-wrap" aria-label="업무 진행률 원형 프로그레스">
+        <svg viewBox="0 0 280 280" aria-hidden="true">
+          <circle class="track" cx="140" cy="140" r="118"></circle>
+          <circle class="progress" id="progressCircle" cx="140" cy="140" r="118"></circle>
+        </svg>
+
+        <div class="center">
+          <div class="percent" id="percentText">0%</div>
+          <div class="subcopy">오늘 업무 진행률</div>
+        </div>
+      </section>
+
+      <section class="countdown-info" aria-label="남은 시간">
+        <div class="label" id="timeLabel">퇴근까지 남은 시간</div>
+        <div class="time" id="timeText">00시간 00분 00초</div>
+      </section>
+
+      <div class="status" id="statusText">근무 시간 계산 중...</div>
+
+      <section class="meta">
+        <div class="meta-item">
+          <span>출근 시간</span>
+          <strong id="metaStart">09:00</strong>
+        </div>
+        <div class="meta-item">
+          <span>퇴근 시간</span>
+          <strong id="metaEnd">18:00</strong>
+        </div>
+      </section>
+
+      <p class="footnote" id="footnoteText">총 9시간 기준으로 진행률 계산</p>
     </section>
 
-    <section class="countdown-info" aria-label="퇴근까지 남은 시간">
-      <div class="label">퇴근까지 남은 시간</div>
-      <div class="time" id="timeText">00시간 00분 00초</div>
-    </section>
+    <section class="tab-panel hidden" id="settingsPanel" role="tabpanel" aria-labelledby="settingsTab">
+      <div class="settings-grid">
+        <label class="field">
+          <span>출근 시간 (06:00~13:00)</span>
+          <select id="startTimeSelect"></select>
+        </label>
 
-    <div class="status" id="statusText">근무 시간 계산 중...</div>
+        <label class="field">
+          <span>근무 시간 - 시간</span>
+          <select id="workHourSelect"></select>
+        </label>
 
-    <section class="meta">
-      <div class="meta-item">
-        <span>출근 시간</span>
-        <strong>09:00</strong>
+        <label class="field">
+          <span>근무 시간 - 분 (10분 단위)</span>
+          <select id="workMinuteSelect"></select>
+        </label>
+
+        <label class="field">
+          <span>반차 설정</span>
+          <select id="halfDaySelect">
+            <option value="none">없음</option>
+            <option value="am">오전 반차</option>
+            <option value="pm">오후 반차</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>연차 설정</span>
+          <select id="leaveTypeSelect">
+            <option value="none">일반 근무</option>
+            <option value="annual">연차</option>
+          </select>
+        </label>
       </div>
-      <div class="meta-item">
-        <span>퇴근 시간</span>
-        <strong>18:00</strong>
-      </div>
+      <p class="footnote">설정은 브라우저에 자동 저장됩니다.</p>
     </section>
-
-    <p class="footnote">총 9시간 기준으로 진행률 계산</p>
   </main>
 
   <script src="./script.js"></script>
