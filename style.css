@@ -17,6 +17,7 @@
   --accent-light: #2535ff;
   --track-dark: rgba(255, 255, 255, 0.16);
   --track-light: rgba(37, 53, 255, 0.16);
+  --error: #ff6b6b;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
 }
 
@@ -39,7 +40,7 @@ body.working-time {
 }
 
 .card {
-  width: min(100%, 460px);
+  width: min(100%, 480px);
   padding: 28px 24px;
   border-radius: 28px;
   background: var(--card-dark);
@@ -48,26 +49,15 @@ body.working-time {
   box-shadow: var(--shadow);
 }
 
-body.working-time .card {
-  background: var(--card-light);
-  border-color: var(--line-light);
-}
+body.working-time .card { background: var(--card-light); border-color: var(--line-light); }
 
 .eyebrow { margin: 0; text-align: center; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sub-dark); }
 body.working-time .eyebrow { color: var(--sub-light); }
-
 h1 { margin: 10px 0 8px; text-align: center; font-size: 32px; line-height: 1.2; }
-
 .desc { margin: 0 0 20px; text-align: center; font-size: 14px; line-height: 1.5; color: var(--sub-dark); }
 body.working-time .desc { color: var(--sub-light); }
 
-.tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
 .tab-btn {
   border: 1px solid var(--line-dark);
   background: transparent;
@@ -77,43 +67,21 @@ body.working-time .desc { color: var(--sub-light); }
   font-weight: 700;
   cursor: pointer;
 }
-
-body.working-time .tab-btn {
-  border-color: var(--line-light);
-  color: var(--text-light);
-}
-
-.tab-btn.is-active {
-  background: rgba(255, 255, 255, 0.16);
-}
-
-body.working-time .tab-btn.is-active {
-  background: rgba(37, 53, 255, 0.12);
-}
-
+body.working-time .tab-btn { border-color: var(--line-light); color: var(--text-light); }
+.tab-btn.is-active { background: rgba(255, 255, 255, 0.16); }
+body.working-time .tab-btn.is-active { background: rgba(37, 53, 255, 0.12); }
 .hidden { display: none; }
 
-.progress-wrap {
-  position: relative;
-  width: 260px;
-  height: 260px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+.progress-wrap { position: relative; width: 260px; height: 260px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
 svg { position: absolute; inset: 0; transform: rotate(-90deg); }
 .track { fill: none; stroke: var(--track-dark); stroke-width: 14; }
 .progress { fill: none; stroke: var(--accent-dark); stroke-width: 14; stroke-linecap: round; transition: stroke-dashoffset 0.7s ease; }
 body.working-time .track { stroke: var(--track-light); }
 body.working-time .progress { stroke: var(--accent-light); }
-
 .center { position: relative; z-index: 1; text-align: center; width: 78%; }
 .percent { margin-top: 8px; font-size: 52px; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
 .subcopy { margin-top: 10px; font-size: 13px; color: var(--sub-dark); }
 body.working-time .subcopy { color: var(--sub-light); }
-
 .countdown-info { margin-top: 18px; text-align: center; }
 .label { font-size: 14px; color: var(--sub-dark); }
 .time { margin-top: 8px; font-size: 32px; font-weight: 800; line-height: 1.35; font-variant-numeric: tabular-nums; }
@@ -128,12 +96,7 @@ body.working-time .label { color: var(--sub-light); }
   font-size: 14px;
   line-height: 1.5;
 }
-
-body.working-time .status {
-  border-color: var(--line-light);
-  background: rgba(255, 255, 255, 0.55);
-}
-
+body.working-time .status { border-color: var(--line-light); background: rgba(255, 255, 255, 0.55); }
 .meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
 .meta-item { padding: 14px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line-dark); }
 body.working-time .meta-item { background: rgba(255, 255, 255, 0.58); border-color: var(--line-light); }
@@ -141,11 +104,12 @@ body.working-time .meta-item { background: rgba(255, 255, 255, 0.58); border-col
 body.working-time .meta-item span { color: var(--sub-light); }
 .meta-item strong { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
 
-.settings-grid { display: grid; gap: 12px; }
-.field { display: grid; gap: 6px; font-size: 13px; color: var(--sub-dark); }
+.settings-grid { display: grid; gap: 16px; }
+.field { display: grid; gap: 8px; font-size: 13px; color: var(--sub-dark); }
 body.working-time .field { color: var(--sub-light); }
-.field select {
-  width: 100%;
+.inline-select-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.inline-select-row select {
+  width: 84px;
   height: 40px;
   border-radius: 10px;
   border: 1px solid var(--line-dark);
@@ -153,8 +117,27 @@ body.working-time .field { color: var(--sub-light); }
   color: inherit;
   padding: 0 10px;
 }
-body.working-time .field select { border-color: var(--line-light); background: rgba(255, 255, 255, 0.82); }
+.unit { opacity: 0.9; font-size: 13px; }
+body.working-time .inline-select-row select { border-color: var(--line-light); background: rgba(255, 255, 255, 0.82); }
 
+.check-row { display: inline-flex; align-items: center; gap: 8px; color: inherit; font-size: 13px; }
+.check-row input { accent-color: #4053ff; }
+
+.mode-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.mode-btn {
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--line-dark);
+  background: rgba(255, 255, 255, 0.07);
+  color: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mode-btn.is-active { background: rgba(255, 255, 255, 0.2); }
+body.working-time .mode-btn { border-color: var(--line-light); background: rgba(255, 255, 255, 0.78); }
+body.working-time .mode-btn.is-active { background: rgba(37, 53, 255, 0.16); }
+
+.error-text { margin: 0; color: var(--error); font-size: 12px; }
 .footnote { margin-top: 14px; text-align: center; font-size: 12px; color: var(--sub-dark); }
 body.working-time .footnote { color: var(--sub-light); }
 
@@ -163,4 +146,5 @@ body.working-time .footnote { color: var(--sub-light); }
   .progress-wrap { width: 228px; height: 228px; }
   .percent { font-size: 44px; }
   .time { font-size: 26px; }
+  .inline-select-row select { width: 72px; }
 }

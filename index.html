@@ -53,37 +53,40 @@
 
     <section class="tab-panel hidden" id="settingsPanel" role="tabpanel" aria-labelledby="settingsTab">
       <div class="settings-grid">
-        <label class="field">
-          <span>출근 시간 (06:00~13:00)</span>
-          <select id="startTimeSelect"></select>
-        </label>
+        <div class="field">
+          <span>출근 시간</span>
+          <div class="inline-select-row">
+            <select id="startHourSelect" aria-label="출근 시"></select>
+            <span class="unit">시</span>
+            <select id="startMinuteSelect" aria-label="출근 분"></select>
+            <span class="unit">분</span>
+          </div>
+        </div>
 
-        <label class="field">
-          <span>근무 시간 - 시간</span>
-          <select id="workHourSelect"></select>
-        </label>
+        <div class="field">
+          <span>근무 시간</span>
+          <div class="inline-select-row">
+            <select id="workHourSelect" aria-label="근무 시간"></select>
+            <span class="unit">시간</span>
+            <select id="workMinuteSelect" aria-label="근무 분"></select>
+            <span class="unit">분</span>
+          </div>
+          <label class="check-row">
+            <input type="checkbox" id="includeLunchCheckbox" />
+            <span>점심시간 포함 (+1시간)</span>
+          </label>
+          <p class="error-text hidden" id="workDurationError">근무 시간은 0시간 0분으로 설정할 수 없습니다.</p>
+        </div>
 
-        <label class="field">
-          <span>근무 시간 - 분 (10분 단위)</span>
-          <select id="workMinuteSelect"></select>
-        </label>
-
-        <label class="field">
+        <div class="field">
           <span>반차 설정</span>
-          <select id="halfDaySelect">
-            <option value="none">없음</option>
-            <option value="am">오전 반차</option>
-            <option value="pm">오후 반차</option>
-          </select>
-        </label>
-
-        <label class="field">
-          <span>연차 설정</span>
-          <select id="leaveTypeSelect">
-            <option value="none">일반 근무</option>
-            <option value="annual">연차</option>
-          </select>
-        </label>
+          <div class="mode-buttons" id="modeButtons">
+            <button type="button" class="mode-btn is-active" data-mode="none">해당없음</button>
+            <button type="button" class="mode-btn" data-mode="am">오전 반차</button>
+            <button type="button" class="mode-btn" data-mode="pm">오후 반차</button>
+            <button type="button" class="mode-btn" data-mode="annual">연차</button>
+          </div>
+        </div>
       </div>
       <p class="footnote">설정은 브라우저에 자동 저장됩니다.</p>
     </section>
