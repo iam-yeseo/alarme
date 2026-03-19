@@ -65,11 +65,24 @@ body.working-time .desc { color: var(--sub-light); }
   height: 40px;
   font-weight: 700;
   cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
 }
 body.working-time .tab-btn { border-color: var(--line-light); color: var(--text-light); }
 .tab-btn.is-active { background: rgba(255, 255, 255, 0.16); }
 body.working-time .tab-btn.is-active { background: rgba(37, 53, 255, 0.12); }
 .hidden { display: none; }
+
+button:hover {
+  background-color: rgba(109, 123, 255, 0.14);
+}
+
+button:active {
+  transform: translateY(0.5px);
+}
+
+body.working-time button:hover {
+  background-color: rgba(37, 53, 255, 0.16);
+}
 
 .progress-wrap { position: relative; width: 260px; height: 260px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
 svg { position: absolute; inset: 0; transform: rotate(-90deg); }
@@ -125,6 +138,7 @@ body.working-time .time-editor-title {
   background: rgba(255, 255, 255, 0.16);
   color: inherit;
   cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
 }
 
 .small-btn.ghost {
@@ -164,6 +178,7 @@ body.working-time .inline-select-row select { border-color: var(--line-light); b
   color: inherit;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
 }
 .mode-btn.is-active { background: rgba(255, 255, 255, 0.2); }
 body.working-time .mode-btn { border-color: var(--line-light); background: rgba(255, 255, 255, 0.78); }
