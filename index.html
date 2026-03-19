@@ -9,7 +9,7 @@
 <body>
   <main class="card">
     <p class="eyebrow">WORKDAY TRACKER</p>
-    <h1>퇴근 알리미</h1>
+    <h1 id="appTitle">퇴근 알리미</h1>
     <p class="desc">근무 설정에 맞춰 남은 시간과 진행률을 자동 계산합니다.</p>
 
     <div class="tabs" role="tablist" aria-label="화면 탭">
@@ -26,25 +26,37 @@
 
         <div class="center">
           <div class="percent" id="percentText">0%</div>
-          <div class="subcopy">오늘 업무 진행률</div>
+          <div class="subcopy" id="progressCaption">오늘 업무 진행률</div>
         </div>
       </section>
 
       <section class="countdown-info" aria-label="남은 시간">
         <div class="label" id="timeLabel">퇴근까지 남은 시간</div>
-        <div class="time" id="timeText">00시간 00분 00초</div>
+        <div class="time" id="timeText">0초</div>
       </section>
 
       <div class="status" id="statusText">근무 시간 계산 중...</div>
 
       <section class="meta">
-        <div class="meta-item">
-          <span>출근 시간</span>
+        <button class="meta-item meta-button" id="metaStartBtn" type="button">
+          <span>출근 시간 (탭하여 변경)</span>
           <strong id="metaStart">09:00</strong>
-        </div>
-        <div class="meta-item">
-          <span>퇴근 시간</span>
+        </button>
+        <button class="meta-item meta-button" id="metaEndBtn" type="button">
+          <span>퇴근 시간 (탭하여 변경)</span>
           <strong id="metaEnd">18:00</strong>
+        </button>
+      </section>
+
+      <section class="time-editor hidden" id="timeEditor" aria-live="polite">
+        <p class="time-editor-title" id="timeEditorTitle">시간 변경</p>
+        <div class="inline-select-row">
+          <select id="editorHourSelect" aria-label="시간"></select>
+          <span class="unit">시</span>
+          <select id="editorMinuteSelect" aria-label="분"></select>
+          <span class="unit">분</span>
+          <button type="button" class="small-btn" id="timeEditorApplyBtn">적용</button>
+          <button type="button" class="small-btn ghost" id="timeEditorCancelBtn">취소</button>
         </div>
       </section>
 
@@ -53,16 +65,6 @@
 
     <section class="tab-panel hidden" id="settingsPanel" role="tabpanel" aria-labelledby="settingsTab">
       <div class="settings-grid">
-        <div class="field">
-          <span>출근 시간</span>
-          <div class="inline-select-row">
-            <select id="startHourSelect" aria-label="출근 시"></select>
-            <span class="unit">시</span>
-            <select id="startMinuteSelect" aria-label="출근 분"></select>
-            <span class="unit">분</span>
-          </div>
-        </div>
-
         <div class="field">
           <span>근무 시간</span>
           <div class="inline-select-row">
