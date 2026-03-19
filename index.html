@@ -4,333 +4,96 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>퇴근 알리미</title>
-  <style>
-    * { box-sizing: border-box; }
-
-    :root {
-      --bg: #0f1115;
-      --card: rgba(255, 255, 255, 0.06);
-      --line: rgba(255, 255, 255, 0.12);
-      --text: #ffffff;
-      --sub: rgba(255, 255, 255, 0.62);
-      --accent: #ffffff;
-      --track: rgba(255, 255, 255, 0.12);
-      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 30%),
-        linear-gradient(180deg, #151922 0%, #0f1115 100%);
-    }
-
-    .card {
-      width: min(100%, 420px);
-      padding: 32px 28px;
-      border-radius: 32px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-    }
-
-    .eyebrow {
-      margin: 0;
-      text-align: center;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--sub);
-    }
-
-    h1 {
-      margin: 12px 0 8px;
-      text-align: center;
-      font-size: 34px;
-      line-height: 1.2;
-    }
-
-    .desc {
-      margin: 0 0 28px;
-      text-align: center;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--sub);
-    }
-
-    .progress-wrap {
-      position: relative;
-      width: 280px;
-      height: 280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    svg {
-      position: absolute;
-      inset: 0;
-      transform: rotate(-90deg);
-    }
-
-    .track {
-      fill: none;
-      stroke: var(--track);
-      stroke-width: 14;
-    }
-
-    .progress {
-      fill: none;
-      stroke: var(--accent);
-      stroke-width: 14;
-      stroke-linecap: round;
-      transition: stroke-dashoffset 0.8s ease;
-    }
-
-    .center {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      width: 78%;
-    }
-
-    .label {
-      font-size: 14px;
-      color: var(--sub);
-    }
-
-    .time {
-      margin-top: 10px;
-      font-size: 32px;
-      font-weight: 800;
-      line-height: 1.35;
-      font-variant-numeric: tabular-nums;
-      word-break: keep-all;
-    }
-
-    .percent {
-      margin-top: 14px;
-      font-size: 52px;
-      font-weight: 900;
-      line-height: 1;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .subcopy {
-      margin-top: 8px;
-      font-size: 13px;
-      color: var(--sub);
-    }
-
-    .status {
-      margin-top: 24px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: rgba(0, 0, 0, 0.18);
-      font-size: 14px;
-      line-height: 1.55;
-      color: var(--text);
-    }
-
-    .meta {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .meta-item {
-      padding: 16px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--line);
-    }
-
-    .meta-item span {
-      display: block;
-      font-size: 12px;
-      color: var(--sub);
-      margin-bottom: 8px;
-    }
-
-    .meta-item strong {
-      font-size: 20px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .footnote {
-      margin-top: 16px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--sub);
-    }
-
-    @media (max-width: 480px) {
-      .card {
-        padding: 24px 18px;
-        border-radius: 24px;
-      }
-
-      .progress-wrap {
-        width: 240px;
-        height: 240px;
-      }
-
-      h1 { font-size: 28px; }
-      .time { font-size: 26px; }
-      .percent { font-size: 44px; }
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <main class="card">
     <p class="eyebrow">WORKDAY TRACKER</p>
-    <h1>퇴근 알리미</h1>
-    <p class="desc">오전 9시 출근 · 오후 6시 퇴근 · 12시~1시 점심시간 제외</p>
+    <h1 id="appTitle">퇴근 알리미</h1>
+    <p class="desc">근무 설정에 맞춰 남은 시간과 진행률을 자동 계산합니다.</p>
 
-    <section class="progress-wrap" aria-label="업무 진행률 원형 프로그레스">
-      <svg viewBox="0 0 280 280" aria-hidden="true">
-        <circle class="track" cx="140" cy="140" r="118"></circle>
-        <circle class="progress" id="progressCircle" cx="140" cy="140" r="118"></circle>
-      </svg>
+    <div class="tabs" role="tablist" aria-label="화면 탭">
+      <button class="tab-btn is-active" id="dashboardTab" data-tab="dashboard" role="tab" aria-selected="true">현황</button>
+      <button class="tab-btn" id="settingsTab" data-tab="settings" role="tab" aria-selected="false">설정</button>
+    </div>
 
-      <div class="center">
-        <div class="label">퇴근까지 남은 시간</div>
-        <div class="time" id="timeText">00시간 00분 00초</div>
-        <div class="percent" id="percentText">0%</div>
-        <div class="subcopy">오늘 업무 진행률</div>
-      </div>
+    <section class="tab-panel" id="dashboardPanel" role="tabpanel" aria-labelledby="dashboardTab">
+      <section class="progress-wrap" aria-label="업무 진행률 원형 프로그레스">
+        <svg viewBox="0 0 280 280" aria-hidden="true">
+          <circle class="track" cx="140" cy="140" r="118"></circle>
+          <circle class="progress" id="progressCircle" cx="140" cy="140" r="118"></circle>
+        </svg>
+
+        <div class="center">
+          <div class="percent" id="percentText">0%</div>
+          <div class="subcopy" id="progressCaption">오늘 업무 진행률</div>
+        </div>
+      </section>
+
+      <section class="countdown-info" aria-label="남은 시간">
+        <div class="label" id="timeLabel">퇴근까지 남은 시간</div>
+        <div class="time" id="timeText">0초</div>
+      </section>
+
+      <div class="status" id="statusText">근무 시간 계산 중...</div>
+
+      <section class="meta">
+        <button class="meta-item meta-button" id="metaStartBtn" type="button">
+          <span>출근 시간 (탭하여 변경)</span>
+          <strong id="metaStart">09:00</strong>
+        </button>
+        <button class="meta-item meta-button" id="metaEndBtn" type="button">
+          <span>퇴근 시간 (탭하여 변경)</span>
+          <strong id="metaEnd">18:00</strong>
+        </button>
+      </section>
+
+      <section class="time-editor hidden" id="timeEditor" aria-live="polite">
+        <p class="time-editor-title" id="timeEditorTitle">시간 변경</p>
+        <div class="inline-select-row">
+          <select id="editorHourSelect" aria-label="시간"></select>
+          <span class="unit">시</span>
+          <select id="editorMinuteSelect" aria-label="분"></select>
+          <span class="unit">분</span>
+          <button type="button" class="small-btn" id="timeEditorApplyBtn">적용</button>
+          <button type="button" class="small-btn ghost" id="timeEditorCancelBtn">취소</button>
+        </div>
+      </section>
+
+      <p class="footnote" id="footnoteText">총 9시간 기준으로 진행률 계산</p>
     </section>
 
-    <div class="status" id="statusText">근무 시간 계산 중...</div>
+    <section class="tab-panel hidden" id="settingsPanel" role="tabpanel" aria-labelledby="settingsTab">
+      <div class="settings-grid">
+        <div class="field">
+          <span>근무 시간</span>
+          <div class="inline-select-row">
+            <select id="workHourSelect" aria-label="근무 시간"></select>
+            <span class="unit">시간</span>
+            <select id="workMinuteSelect" aria-label="근무 분"></select>
+            <span class="unit">분</span>
+          </div>
+          <label class="check-row">
+            <input type="checkbox" id="includeLunchCheckbox" />
+            <span>점심시간 포함 (+1시간)</span>
+          </label>
+          <p class="error-text hidden" id="workDurationError">근무 시간은 0시간 0분으로 설정할 수 없습니다.</p>
+        </div>
 
-    <section class="meta">
-      <div class="meta-item">
-        <span>출근 시간</span>
-        <strong>09:00</strong>
+        <div class="field">
+          <span>반차 설정</span>
+          <div class="mode-buttons" id="modeButtons">
+            <button type="button" class="mode-btn is-active" data-mode="none">해당없음</button>
+            <button type="button" class="mode-btn" data-mode="am">오전 반차</button>
+            <button type="button" class="mode-btn" data-mode="pm">오후 반차</button>
+            <button type="button" class="mode-btn" data-mode="annual">연차</button>
+          </div>
+        </div>
       </div>
-      <div class="meta-item">
-        <span>퇴근 시간</span>
-        <strong>18:00</strong>
-      </div>
+      <p class="footnote">설정은 브라우저에 자동 저장됩니다.</p>
     </section>
-
-    <p class="footnote">점심시간 1시간은 자동 제외됨</p>
   </main>
 
-  <script>
-    const WORK_START_HOUR = 9;
-    const LUNCH_START_HOUR = 12;
-    const LUNCH_END_HOUR = 13;
-    const WORK_END_HOUR = 18;
-    const TOTAL_WORK_SECONDS = 8 * 60 * 60; // 9시간 중 점심 1시간 제외 = 8시간
-
-    const progressCircle = document.getElementById('progressCircle');
-    const percentText = document.getElementById('percentText');
-    const timeText = document.getElementById('timeText');
-    const statusText = document.getElementById('statusText');
-
-    const radius = 118;
-    const circumference = 2 * Math.PI * radius;
-
-    progressCircle.style.strokeDasharray = `${circumference}`;
-    progressCircle.style.strokeDashoffset = `${circumference}`;
-
-    function getTodayTime(hour, minute = 0, second = 0) {
-      const now = new Date();
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, second);
-    }
-
-    function formatRemaining(seconds) {
-      const safeSeconds = Math.max(0, Math.floor(seconds));
-      const hh = String(Math.floor(safeSeconds / 3600)).padStart(2, '0');
-      const mm = String(Math.floor((safeSeconds % 3600) / 60)).padStart(2, '0');
-      const ss = String(safeSeconds % 60).padStart(2, '0');
-      return `${hh}시간 ${mm}분 ${ss}초`;
-    }
-
-    function getWorkedSeconds(now) {
-      const workStart = getTodayTime(WORK_START_HOUR);
-      const lunchStart = getTodayTime(LUNCH_START_HOUR);
-      const lunchEnd = getTodayTime(LUNCH_END_HOUR);
-      const workEnd = getTodayTime(WORK_END_HOUR);
-
-      if (now < workStart) return 0;
-      if (now >= workEnd) return TOTAL_WORK_SECONDS;
-
-      let worked = 0;
-
-      // 오전 근무: 09:00 ~ 12:00
-      const morningEnd = lunchStart;
-      if (now > workStart) {
-        worked += Math.max(0, Math.min(now, morningEnd) - workStart) / 1000;
-      }
-
-      // 오후 근무: 13:00 ~ 18:00
-      if (now > lunchEnd) {
-        worked += Math.max(0, Math.min(now, workEnd) - lunchEnd) / 1000;
-      }
-
-      return Math.min(worked, TOTAL_WORK_SECONDS);
-    }
-
-    function getStatusMessage(now, progress, remainingSeconds) {
-      const workStart = getTodayTime(WORK_START_HOUR);
-      const lunchStart = getTodayTime(LUNCH_START_HOUR);
-      const lunchEnd = getTodayTime(LUNCH_END_HOUR);
-      const workEnd = getTodayTime(WORK_END_HOUR);
-
-      if (now < workStart) {
-        const untilStart = Math.floor((workStart - now) / 1000);
-        return `아직 출근 전이에요. 업무 시작까지 ${formatRemaining(untilStart)} 남았어요.`;
-      }
-
-      if (now >= lunchStart && now < lunchEnd) {
-        const untilLunchEnd = Math.floor((lunchEnd - now) / 1000);
-        return `지금은 점심시간 🍱 ${formatRemaining(untilLunchEnd)} 뒤에 다시 업무가 시작돼요.`;
-      }
-
-      if (now >= workEnd) {
-        return '퇴근 완료 🎉 오늘도 고생했어요. 이제 도망... 아니, 퇴장하세요.';
-      }
-
-      if (progress >= 75) {
-        return `거의 다 왔어요. 퇴근까지 ${formatRemaining(remainingSeconds)} 남음.`;
-      }
-
-      if (progress >= 50) {
-        return `후반전 진입! 퇴근까지 ${formatRemaining(remainingSeconds)} 남았어요.`;
-      }
-
-      return `업무 진행 중. 퇴근까지 ${formatRemaining(remainingSeconds)} 남았어요.`;
-    }
-
-    function updateCountdown() {
-      const now = new Date();
-      const workedSeconds = getWorkedSeconds(now);
-      const remainingSeconds = TOTAL_WORK_SECONDS - workedSeconds;
-      const progress = (workedSeconds / TOTAL_WORK_SECONDS) * 100;
-      const offset = circumference * (1 - progress / 100);
-
-      percentText.textContent = `${Math.floor(progress)}%`;
-      timeText.textContent = formatRemaining(remainingSeconds);
-      progressCircle.style.strokeDashoffset = `${offset}`;
-      statusText.textContent = getStatusMessage(now, progress, remainingSeconds);
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
+  <script src="./script.js"></script>
 </body>
 </html>
